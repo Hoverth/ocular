@@ -20,12 +20,15 @@ export const generateBudgetYear = (year: number): BudgetYear => ({
 });
 
 export const generateBudgetYearFromCurrent = (year: number, current: BudgetYear): BudgetYear => {
-  current.income = current.income.map((value) => {
+  function clearValues(value: BudgetGroup) {
     for (const budget of value.budgets) {
       budget.values = new Array(12).fill(0);
     }
     return value;
-  });
+  }
+
+  current.income = current.income.map(clearValues);
+  current.expenses = current.expenses.map(clearValues);
 
   return {
     year,
