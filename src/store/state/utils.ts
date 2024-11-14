@@ -18,3 +18,18 @@ export const generateBudgetYear = (year: number): BudgetYear => ({
   income: [generateBudgetGroup('General', ['Other'])],
   expenses: [generateBudgetGroup('General', ['Other'])]
 });
+
+export const generateBudgetYearFromCurrent = (year: number, current: BudgetYear): BudgetYear => {
+  current.income = current.income.map((value) => {
+    for (const budget of value.budgets) {
+      budget.values = new Array(12).fill(0);
+    }
+    return value;
+  });
+
+  return {
+    year,
+    income: current.income,
+    expenses: current.expenses
+  };
+};
